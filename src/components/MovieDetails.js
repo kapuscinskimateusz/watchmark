@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { BASE_URL } from "./App";
 import Loader from "./Loader";
 import ErrorMessage from "./ErrorMessage";
+import StarRating from "./StarRating";
 
 export default function MovieDetails({
   selectedId,
@@ -13,8 +14,12 @@ export default function MovieDetails({
   const [movie, setMovie] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
+  const [userRating, setUserRating] = useState(0);
 
   const isWatched = watched.map((movie) => movie.imdbID).includes(selectedId);
+  const watchedUserRating = watched.find(
+    (movie) => movie.imdbID === selectedId
+  )?.userRating;
 
   function handleAdd() {
     const newWatchedMovie = {
@@ -22,6 +27,8 @@ export default function MovieDetails({
       title: movie.Title,
       poster: movie.Poster,
       imdbRating: movie.imdbRating,
+      userRating,
+      runtime: movie.Runtime,
     };
 
     onAddWatched(newWatchedMovie);
@@ -71,15 +78,20 @@ export default function MovieDetails({
             {movie.Released} &bull; {movie.Runtime}
           </p>
           <p>{movie.Genre}</p>
-          <p>&#9734; {movie.imdbRating} IMDB rating</p>
+          <p>⭐ {movie.imdbRating} IMDB rating</p>
         </div>
       </header>
 
       <section>
         {isWatched ? (
-          <p>You watched this movie</p>
+          <p>You rated this movie {watchedUserRating} 🌟</p>
         ) : (
-          <button onClick={handleAdd}>+ Add to watched</button>
+          <div>
+            <StarRating maxRating={10} size={24} onSetRating={setUserRating} />
+            {userRating > 0 && (
+              <button onClick={handleAdd}>+ Add to watched</button>
+            )}
+          </div>
         )}
 
         <br />

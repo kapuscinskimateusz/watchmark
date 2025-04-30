@@ -85,6 +85,7 @@ body {
 .list-item div {
   display: flex;
   align-items: center;
+  gap: 20px;
 }
 
 .movie-list-item {
