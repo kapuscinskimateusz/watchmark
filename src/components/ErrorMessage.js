@@ -1,3 +1,7 @@
 export default function ErrorMessage({ error }) {
-  return <p>{error}</p>;
+  return (
+    <p>
+      <span>⛔️</span> {error}
+    </p>
+  );
 }
