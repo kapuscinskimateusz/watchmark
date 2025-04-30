@@ -6,7 +6,7 @@ export default function Box({ children }) {
   return (
     <div className="box">
       <button
-        className="close-btn"
+        className="btn-close"
         onClick={() => setIsOpen((isOpen) => !isOpen)}
       >
         {isOpen ? "Close" : "Open"}

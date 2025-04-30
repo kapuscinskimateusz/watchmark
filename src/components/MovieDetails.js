@@ -4,10 +4,29 @@ import { BASE_URL } from "./App";
 import Loader from "./Loader";
 import ErrorMessage from "./ErrorMessage";
 
-export default function MovieDetails({ selectedId, onCloseMovie }) {
+export default function MovieDetails({
+  selectedId,
+  watched,
+  onCloseMovie,
+  onAddWatched,
+}) {
   const [movie, setMovie] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
+
+  const isWatched = watched.map((movie) => movie.imdbID).includes(selectedId);
+
+  function handleAdd() {
+    const newWatchedMovie = {
+      imdbID: movie.imdbID,
+      title: movie.Title,
+      poster: movie.Poster,
+      imdbRating: movie.imdbRating,
+    };
+
+    onAddWatched(newWatchedMovie);
+    onCloseMovie();
+  }
 
   useEffect(() => {
     async function getMovie() {
@@ -40,7 +59,7 @@ export default function MovieDetails({ selectedId, onCloseMovie }) {
   return (
     <div className="movie-details">
       <header>
-        <button className="back-btn" onClick={onCloseMovie}>
+        <button className="btn-back" onClick={onCloseMovie}>
           &larr;
         </button>
 
@@ -57,7 +76,17 @@ export default function MovieDetails({ selectedId, onCloseMovie }) {
       </header>
 
       <section>
-        <p>{movie.Plot}</p>
+        {isWatched ? (
+          <p>You watched this movie</p>
+        ) : (
+          <button onClick={handleAdd}>+ Add to watched</button>
+        )}
+
+        <br />
+
+        <p>
+          <em>{movie.Plot}</em>
+        </p>
         <p>Starring {movie.Actors}</p>
         <p>Directed by {movie.Director}</p>
       </section>

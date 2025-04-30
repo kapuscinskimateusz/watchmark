@@ -9,6 +9,8 @@ import Loader from "./Loader";
 import ErrorMessage from "./ErrorMessage";
 import MovieList from "./MovieList";
 import MovieDetails from "./MovieDetails";
+import WatchedSummary from "./WatchedSummary";
+import WatchedList from "./WatchedList";
 
 const API_KEY = "151310d4";
 export const BASE_URL = `http://www.omdbapi.com/?apikey=${API_KEY}&`;
@@ -19,6 +21,7 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [selectedMovie, setSelectedMovie] = useState(null);
+  const [watched, setWatched] = useState([]);
 
   function handleSelectMovie(id) {
     if (selectedMovie === id) return setSelectedMovie(null);
@@ -28,6 +31,14 @@ export default function App() {
 
   function handleCloseMovie() {
     setSelectedMovie(null);
+  }
+
+  function handleAddWatched(movie) {
+    setWatched((watched) => [...watched, movie]);
+  }
+
+  function handleDeleteWatched(id) {
+    setWatched((watched) => watched.filter((movie) => movie.imdbID !== id));
   }
 
   useEffect(() => {
@@ -92,10 +103,18 @@ export default function App() {
           {selectedMovie ? (
             <MovieDetails
               selectedId={selectedMovie}
+              watched={watched}
               onCloseMovie={handleCloseMovie}
+              onAddWatched={handleAddWatched}
             />
           ) : (
-            <></>
+            <>
+              <WatchedSummary watched={watched} />
+              <WatchedList
+                watched={watched}
+                onDeleteWatched={handleDeleteWatched}
+              />
+            </>
           )}
         </Box>
       </Main>

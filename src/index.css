@@ -44,29 +44,50 @@ body {
   position: relative;
   background-color: gray;
   border-radius: 12px;
-  overflow-y: scroll;
+  overflow-y: hidden;
 }
 
-.box .close-btn {
+.box .btn-close {
   position: absolute;
   top: 10px;
-  right: 10px;
+  right: 20px;
   z-index: 10;
 }
 
-.movie-list {
+.list {
   list-style-type: none;
   padding-block: 10px;
+  height: 100%;
+  max-height: 100%;
+  overflow-y: scroll;
+}
+
+.list-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  grid-template-rows: auto auto;
+  align-items: center;
+  column-gap: 20px;
+  border-bottom: 1px solid black;
+  padding: 10px 20px;
+}
+
+.list-item:last-child {
+  border-bottom: none;
+}
+
+.list-item img {
+  grid-row: 1 / -1;
+  width: 100%;
+}
+
+.list-item div {
+  display: flex;
+  align-items: center;
 }
 
 .movie-list-item {
-  display: grid;
-  grid-template-columns: 40px 1fr;
-  align-items: center;
-  gap: 20px;
-  border-bottom: 1px solid black;
-  padding: 10px 20px;
-  min-height: 100px;
   transition: 0.3s;
   cursor: pointer;
 }
@@ -75,12 +96,11 @@ body {
   background-color: yellow;
 }
 
-.movie-list-item:last-child {
-  border-bottom: none;
-}
-
-.movie-list-item img {
-  width: 100%;
+.watched-list-item .btn-delete {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
 }
 
 .movie-details header {
@@ -91,7 +111,7 @@ body {
   background-color: orange;
 }
 
-.movie-details header .back-btn {
+.movie-details header .btn-back {
   position: absolute;
   top: 10px;
   left: 10px;
@@ -99,4 +119,9 @@ body {
 
 .movie-details header img {
   width: 33%;
+}
+
+.watched-summary {
+  padding: 20px;
+  background-color: orange;
 }
