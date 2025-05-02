@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { BASE_URL } from "../components/App";
 
-export function useMovies(query) {
+export function useMovies(query, callback) {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
   useEffect(() => {
+    callback?.();
+
     const controller = new AbortController();
 
     async function getMovies() {

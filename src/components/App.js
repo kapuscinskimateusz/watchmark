@@ -19,7 +19,7 @@ export const BASE_URL = `http://www.omdbapi.com/?apikey=${API_KEY}&`;
 
 export default function App() {
   const [query, setQuery] = useState("");
-  const { movies, isLoading, error } = useMovies(query);
+  const { movies, isLoading, error } = useMovies(query, handleCloseMovie);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [watched, setWatched] = useLocalStorageState([], "watched");
 

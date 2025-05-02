@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { BASE_URL } from "./App";
+import { useKey } from "../hooks/useKey";
 import Loader from "./Loader";
 import ErrorMessage from "./ErrorMessage";
 import StarRating from "./StarRating";
@@ -15,6 +16,8 @@ export default function MovieDetails({
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
   const [userRating, setUserRating] = useState(0);
+
+  useKey("Escape", onCloseMovie);
 
   const isWatched = watched.map((movie) => movie.imdbID).includes(selectedId);
   const watchedUserRating = watched.find(
