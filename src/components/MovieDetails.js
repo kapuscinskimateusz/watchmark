@@ -68,6 +68,10 @@ export default function MovieDetails({
     if (!title) return;
 
     document.title = `WatchMark - ${title}`;
+
+    return function () {
+      document.title = `WatchMark`;
+    };
   }, [title]);
 
   if (isLoading) return <Loader />;
