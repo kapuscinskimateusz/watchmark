@@ -19,6 +19,7 @@ export default function MovieDetails({
 
   useKey("Escape", onCloseMovie);
 
+  const { Title: title } = movie || {};
   const isWatched = watched.map((movie) => movie.imdbID).includes(selectedId);
   const watchedUserRating = watched.find(
     (movie) => movie.imdbID === selectedId
@@ -62,6 +63,12 @@ export default function MovieDetails({
 
     getMovie();
   }, [selectedId]);
+
+  useEffect(() => {
+    if (!title) return;
+
+    document.title = `WatchMark - ${title}`;
+  }, [title]);
 
   if (isLoading) return <Loader />;
   if (error) return <ErrorMessage error={error} />;
