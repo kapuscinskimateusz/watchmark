@@ -14,7 +14,7 @@ export default function WatchedListItem({ movie, onDelete }) {
         </p>
         <p>
           <span>⌛</span>
-          <span>{movie.runtime}</span>
+          <span>{movie.runtime} min</span>
         </p>
 
         <button className="btn-delete" onClick={() => onDelete(movie.imdbID)}>

@@ -29,9 +29,9 @@ export default function MovieDetails({
       imdbID: movie.imdbID,
       title: movie.Title,
       poster: movie.Poster,
-      imdbRating: movie.imdbRating,
+      imdbRating: Number(movie.imdbRating),
       userRating,
-      runtime: movie.Runtime,
+      runtime: Number(movie.Runtime.split(" ")[0]),
     };
 
     onAddWatched(newWatchedMovie);
