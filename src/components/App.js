@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import { useMovies } from "../hooks/useMovies";
+import { useLocalStorageState } from "../hooks/useLocalStorageState";
 import NavBar from "./NavBar";
 import NumResults from "./NumResults";
 import Search from "./Search";
@@ -20,7 +21,7 @@ export default function App() {
   const [query, setQuery] = useState("");
   const { movies, isLoading, error } = useMovies(query);
   const [selectedMovie, setSelectedMovie] = useState(null);
-  const [watched, setWatched] = useState([]);
+  const [watched, setWatched] = useLocalStorageState([], "watched");
 
   function handleSelectMovie(id) {
     setSelectedMovie((selectedMovie) => (selectedMovie === id ? null : id));
